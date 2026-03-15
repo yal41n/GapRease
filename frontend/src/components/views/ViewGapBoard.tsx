@@ -151,7 +151,7 @@ export const ViewGapBoard = () => {
 
             {selectedGap && (
                 <div className="modal-overlay" style={{ background: 'rgba(0,0,0,0.5)' }} onClick={(e) => { if (e.target === e.currentTarget) setSelectedGap(null); }}>
-                    <div className="slide-over w-[400px]">
+                    <div className="slide-over w-[400px] z-[102] bg-surface h-full absolute right-0 top-0 p-6 border-l border-border shadow-2xl animate-in slide-in-from-right overflow-y-auto">
                         <div className="flex justify-between items-center mb-8">
                             <h3 className="m-0 font-bold">{selectedGap.id} Detail</h3>
                             <button className="btn p-1.5 border-none" onClick={() => setSelectedGap(null)}><Icons.Close /></button>

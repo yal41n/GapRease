@@ -155,8 +155,12 @@
     @apply absolute -bottom-5 left-1/2 -translate-x-1/2 text-[0.6rem] text-muted-foreground whitespace-nowrap;
   }
 
-  .avatar {
-    @apply w-8 h-8 rounded-full bg-primary flex items-center justify-center text-xs font-bold border-2 border-[#1C1C2A];
+  .modal-overlay {
+    @apply fixed inset-0 bg-black/60 backdrop-blur-sm z-[100] flex items-center justify-center p-4;
+  }
+
+  .modal-content {
+    @apply bg-surface border border-border rounded-xl p-6 w-full max-w-lg z-[101] shadow-2xl;
   }
 }
 

@@ -235,7 +235,7 @@ export const ViewAiAnalysis = () => {
                         )}
 
                         {isDone && (
-                            <div className="flex flex-col gap-4 mt-6 border-t border-[#1C1C2A] pt-6 animate-in fade-in zoom-in duration-500">
+                            <div className="flex flex-col gap-4 mt-6 border-t border-[#1C1C2A] pt-6 animate-in fade-in zoom-in duration-500 relative z-50">
                                 <div className="text-success flex items-center gap-2 font-sans font-bold text-lg">
                                     <Icons.Check /> Agent Swarm Execution Complete
                                 </div>
