@@ -13,9 +13,9 @@ import { ViewLogin } from './components/views/ViewLogin';
 function App() {
     const { activeView, isAuthenticated } = useAppStore();
 
-    if (!isAuthenticated) {
-        return <ViewLogin />;
-    }
+    // if (!isAuthenticated) {
+    //     return <ViewLogin />;
+    // }
 
     return (
         <div className="flex bg-background text-foreground h-screen overflow-hidden">

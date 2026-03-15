@@ -24,7 +24,7 @@ app = FastAPI(title="Cyber GAP Backend")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://127.0.0.1:5173", "http://localhost:8000"],
+    allow_origins=["http://localhost:5173", "http://127.0.0.1:5173", "http://localhost:8000", "http://localhost:3000", "http://127.0.0.1:3000"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -39,8 +39,38 @@ def on_startup():
         db.execute(text("ALTER TABLE users ADD COLUMN requires_password_change BOOLEAN DEFAULT 0"))
         db.commit()
     except Exception:
-        pass # Column already exists
-    
+        db.rollback()
+
+    try:
+        db.execute(text("ALTER TABLE users ADD COLUMN name VARCHAR DEFAULT 'User'"))
+        db.commit()
+    except Exception:
+        db.rollback()
+
+    try:
+        db.execute(text("ALTER TABLE users ADD COLUMN is_active BOOLEAN DEFAULT 1"))
+        db.commit()
+    except Exception:
+        db.rollback()
+
+    try:
+        db.execute(text("ALTER TABLE users ADD COLUMN manager_id INTEGER"))
+        db.commit()
+    except Exception:
+        db.rollback()
+
+    try:
+        db.execute(text("ALTER TABLE users ADD COLUMN created_by INTEGER"))
+        db.commit()
+    except Exception:
+        db.rollback()
+
+    try:
+        db.execute(text("ALTER TABLE users ADD COLUMN created_at DATETIME"))
+        db.commit()
+    except Exception:
+        db.rollback()
+
     admin = db.query(User).filter(User.email == "ciso").first()
     if not admin:
         admin = User(
