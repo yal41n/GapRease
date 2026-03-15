@@ -1,0 +1,36 @@
+[
+    {
+        "resource_type": "AWS EC2 Instance",
+        "resource_id": "i-0abcd1234efgh5678",
+        "configuration": {
+            "security_groups": [
+                "sg-0123456789abcdef0"
+            ],
+            "iam_role": "WebServerRole",
+            "public_ip": "203.0.113.15",
+            "tags": {
+                "Environment": "Production",
+                "App": "CyberApp"
+            }
+        },
+        "compliance_status": "Non-Compliant",
+        "issues": [
+            "Port 22 is open to 0.0.0.0/0",
+            "EBS volume is unencrypted"
+        ]
+    },
+    {
+        "resource_type": "AWS S3 Bucket",
+        "resource_id": "cyberapp-customer-data-prod",
+        "configuration": {
+            "public_access_block": false,
+            "encryption": "AES256",
+            "versioning": "Suspended"
+        },
+        "compliance_status": "Non-Compliant",
+        "issues": [
+            "Bucket allows public read access",
+            "Versioning is not enabled"
+        ]
+    }
+]

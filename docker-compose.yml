@@ -1,0 +1,58 @@
+services:
+  frontend:
+    build: ./frontend
+    ports: [ "3000:3000" ]
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    environment:
+      - VITE_API_URL=http://localhost:8000
+    networks:
+      - cybersec-net
+
+  backend:
+    build: ./backend
+    ports: [ "8000:8000" ]
+    volumes:
+      - ./backend:/app
+      - ./data:/app/data
+    environment:
+      - DATABASE_URL=sqlite:///./data/db.sqlite3
+      - UPLOAD_DIR=/app/data/uploads
+      - OLLAMA_URL=http://ollama:11434
+      - REDIS_URL=redis://redis:6379
+      - JWT_SECRET=change-me-in-production
+    depends_on:
+      - ollama
+      - redis
+    networks:
+      - cybersec-net
+
+  ollama:
+    image: ollama/ollama:latest
+    ports: [ "11434:11434" ]
+    volumes:
+      - ollama_models:/root/.ollama
+    networks:
+      - cybersec-net
+    # Uncomment the following lines to enable NVIDIA GPU support
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: all
+    #           capabilities: [gpu]
+
+  redis:
+    image: redis:7-alpine
+    ports: [ "6379:6379" ]
+    networks:
+      - cybersec-net
+
+networks:
+  cybersec-net:
+
+
+volumes:
+  ollama_models:

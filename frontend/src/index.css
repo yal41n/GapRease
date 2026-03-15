@@ -1,0 +1,182 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg: #0D0D14;
+    --surface: #13131F;
+    --border: #1E1E30;
+    --primary: #7C3AED;
+    --primary-glow: #A78BFA;
+    --text: #F1F0FF;
+    --text-muted: #8B8BAD;
+    --success: #10B981;
+    --warning: #F59E0B;
+    --danger: #EF4444;
+    --radius-card: 8px;
+    --radius-btn: 6px;
+    --radius-input: 4px;
+
+    color-scheme: dark;
+  }
+}
+
+@layer base {
+  body {
+    @apply bg-background text-foreground tracking-wide;
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+  }
+
+  * {
+    box-sizing: border-box;
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary) var(--surface);
+  }
+
+  ::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--surface);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 4px;
+  }
+}
+
+@layer components {
+  .card {
+    @apply bg-surface border border-border rounded-card p-6 transition-all duration-200;
+  }
+
+  .card:hover {
+    box-shadow: 0 0 16px rgba(124, 58, 237, 0.1);
+  }
+
+  .btn {
+    @apply bg-surface text-foreground border border-border rounded-btn px-4 py-2 cursor-pointer font-medium text-sm transition-all duration-200 inline-flex items-center justify-center gap-2;
+  }
+
+  .btn:hover {
+    background: #1C1C2A;
+  }
+
+  .btn-primary {
+    @apply bg-primary border-primary text-white;
+  }
+
+  .btn-primary:hover {
+    background: #6D28D9;
+    box-shadow: 0 0 16px rgba(124, 58, 237, 0.3);
+  }
+
+  .input {
+    @apply bg-[#08080C] border border-border text-foreground rounded-input p-2 w-full outline-none;
+  }
+
+  .input:focus {
+    @apply border-primary;
+    box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.2);
+  }
+
+  .badge {
+    @apply px-2 py-1 rounded-full text-xs font-semibold uppercase tracking-wider inline-block;
+  }
+
+  .table-container {
+    @apply w-full rounded-card border border-border overflow-hidden;
+  }
+
+  table {
+    @apply w-full border-collapse text-left bg-surface;
+  }
+
+  th {
+    @apply bg-[#0A0A10] p-4 text-xs text-muted-foreground uppercase border-b border-border;
+  }
+
+  td {
+    @apply p-4 text-sm border-b border-border;
+  }
+
+  tr:last-child td {
+    border-bottom: none;
+  }
+
+  tr:hover td {
+    background: rgba(255, 255, 255, 0.02);
+  }
+
+  .nav-item {
+    @apply px-4 py-3 rounded-btn text-muted-foreground cursor-pointer flex items-center gap-3 transition-all duration-200 border-l-2 border-transparent;
+  }
+
+  .nav-item:hover {
+    @apply text-foreground;
+    background: rgba(255, 255, 255, 0.03);
+  }
+
+  .nav-item.active {
+    @apply text-foreground border-l-primary;
+    background: rgba(124, 58, 237, 0.1);
+  }
+
+  .donut-chart {
+    @apply w-[120px] h-[120px] rounded-full relative;
+    background: conic-gradient(var(--success) 0% 25%, var(--primary) 25% 60%, var(--danger) 60% 100%);
+  }
+
+  .donut-chart::after {
+    content: '';
+    @apply absolute inset-[15px] bg-surface rounded-full;
+  }
+
+  .bar-chart {
+    @apply flex items-end gap-2 h-[120px] pt-5;
+  }
+
+  .bar {
+    @apply flex-1 bg-primary min-w-[20px] rounded-t transition-all duration-300 relative;
+  }
+
+  .bar:hover {
+    background: var(--primary-glow);
+  }
+
+  .bar-label {
+    @apply absolute -bottom-5 left-1/2 -translate-x-1/2 text-[0.6rem] text-muted-foreground whitespace-nowrap;
+  }
+
+  .avatar {
+    @apply w-8 h-8 rounded-full bg-primary flex items-center justify-center text-xs font-bold border-2 border-[#1C1C2A];
+  }
+}
+
+@keyframes pulse-success {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+  }
+
+  50% {
+    transform: scale(1.02);
+    box-shadow: 0 0 0 10px rgba(16, 185, 129, 0);
+  }
+
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+  }
+}
+
+.resolve-anim {
+  animation: pulse-success 1s ease-out;
+}

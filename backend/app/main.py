@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 
 from app.core.database import Base, SessionLocal, engine
@@ -19,6 +20,14 @@ from app.routers.users import router as users_router
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="Cyber GAP Backend")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 @app.on_event("startup")
@@ -46,6 +55,15 @@ def on_startup():
             plan_type="free",
         )
         db.add(free_manager)
+
+    domain = db.query(Domain).filter(Domain.id == 1).first()
+    if not domain:
+        domain = Domain(
+            id=1,
+            name="Mock Framework",
+            description="Mock Domain for AI Analysis uploads"
+        )
+        db.add(domain)
 
     db.commit()
     db.close()
