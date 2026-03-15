@@ -21,6 +21,7 @@ class User(Base):
     # free / approved / internal
     plan_type = Column(String, nullable=False, default="free")
 
+    requires_password_change = Column(Boolean, default=False)
     is_active = Column(Boolean, default=True)
 
     # who manages this user (only for normal users usually)

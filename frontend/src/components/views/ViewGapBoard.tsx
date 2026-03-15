@@ -5,7 +5,7 @@ import { Badge, getSeverityColor, getStatusColor } from '../Badge';
 import { Icons } from '../Icons';
 
 export const ViewGapBoard = () => {
-    const { gaps, setGaps, resolveGap } = useAppStore();
+    const { gaps, setGaps, resolveGap, assignGap } = useAppStore();
 
     const [filterStatus, setFilterStatus] = useState('All');
     const [filterSeverity, setFilterSeverity] = useState('All');
@@ -82,7 +82,17 @@ export const ViewGapBoard = () => {
                                 <td className="text-muted-foreground">{g.domain}</td>
                                 <td><Badge text={g.severity} colorOpts={getSeverityColor(g.severity)} /></td>
                                 <td><Badge text={g.status} colorOpts={getStatusColor(g.status)} /></td>
-                                <td>{g.assignedTo}</td>
+                                <td>
+                                    <select
+                                        className="bg-transparent border border-transparent hover:border-border rounded px-2 py-1 text-sm outline-none cursor-pointer focus:border-primary transition-colors pr-6 appearance-none"
+                                        value={g.assignedTo}
+                                        onChange={(e) => assignGap(g.id, e.target.value)}
+                                        style={{ backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e")`, backgroundPosition: 'right 0.2rem center', backgroundRepeat: 'no-repeat', backgroundSize: '1.5em 1.5em' }}
+                                    >
+                                        <option value="Unassigned" className="bg-[#0A0A10]">Unassigned</option>
+                                        {USERS.map(u => <option key={u.id} value={u.name} className="bg-[#0A0A10]">{u.name}</option>)}
+                                    </select>
+                                </td>
                                 <td>
                                     <div className="flex gap-2">
                                         <button className="btn p-1.5" onClick={() => setSelectedGap(g)} title="View Detail"><Icons.Eye /></button>

@@ -32,7 +32,7 @@ def create_manager(db: Session, current_user: User, payload):
 
 
 def create_user(db: Session, current_user: User, payload):
-    if current_user.role not in ["ciso_admin", "manager"]:
+    if current_user.role not in ["ciso_admin", "admin", "manager"]:
         raise HTTPException(status_code=403, detail="Not allowed")
 
     existing = db.query(User).filter(User.email == payload.email).first()
@@ -48,11 +48,15 @@ def create_user(db: Session, current_user: User, payload):
         if current_user.plan_type == "free" and current_count >= 5:
             raise HTTPException(status_code=403, detail="Free plan supports up to 5 users")
 
+    # Only ciso_admin/admin can create other admins/managers via this catch-all if we want.
+    if payload.role in ["admin", "manager"] and current_user.role not in ["ciso_admin", "admin"]:
+        raise HTTPException(status_code=403, detail="Only admins can create higher level roles")
+
     user = User(
         name=payload.name,
         email=payload.email,
         password_hash=get_password_hash(payload.password),
-        role="user",
+        role=payload.role,
         plan_type="free",
         manager_id=manager_id,
         created_by=current_user.id,

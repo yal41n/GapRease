@@ -13,7 +13,6 @@ export const Header = () => {
                     <Icons.Bell />
                     <span className="absolute top-1 right-1 w-2 h-2 bg-danger rounded-full"></span>
                 </button>
-                <button className="btn btn-primary py-1">Export Report</button>
             </div>
         </header>
     );

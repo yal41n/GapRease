@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
+from sqlalchemy import text
 
 from app.core.database import Base, SessionLocal, engine
 from app.core.security import get_password_hash
@@ -23,7 +24,7 @@ app = FastAPI(title="Cyber GAP Backend")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["http://localhost:5173", "http://127.0.0.1:5173", "http://localhost:8000"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -34,16 +35,28 @@ app.add_middleware(
 def on_startup():
     db: Session = SessionLocal()
 
-    admin = db.query(User).filter(User.email == "admin@ciso.local").first()
+    try:
+        db.execute(text("ALTER TABLE users ADD COLUMN requires_password_change BOOLEAN DEFAULT 0"))
+        db.commit()
+    except Exception:
+        pass # Column already exists
+    
+    admin = db.query(User).filter(User.email == "ciso").first()
     if not admin:
         admin = User(
             name="CISO Admin",
-            email="admin@ciso.local",
-            password_hash=get_password_hash("admin123"),
+            email="ciso",
+            password_hash=get_password_hash("ciso"),
             role="ciso_admin",
             plan_type="internal",
+            requires_password_change=True
         )
         db.add(admin)
+    else:
+        # Force the existing ciso user to require change if we just migrated
+        admin.requires_password_change = True
+        
+    db.commit()
 
     free_manager = db.query(User).filter(User.email == "manager@example.com").first()
     if not free_manager:

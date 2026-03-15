@@ -7,7 +7,7 @@ class UserCreate(BaseModel):
     name: str
     email: EmailStr
     password: str
-    role: Literal["manager", "user"] = "user"
+    role: Literal["manager", "user", "admin", "intern"] = "intern"
     plan_type: Optional[Literal["free", "approved"]] = None
     manager_id: Optional[int] = None
 
