@@ -1,4 +1,4 @@
-# 🔐 CyberGAP (GAPrizz)
+# 🔐 GAPLIZZER
 
 **AI-powered cybersecurity GAP analysis platform** that helps organizations **identify, prioritize, and close security gaps** collaboratively — continuously, and with **full confidentiality control** (including a fully on‑prem / air‑gapped option).
 
@@ -28,13 +28,13 @@
 
 ## 🎯 Overview
 
-**CyberGAP** is an AI-powered cybersecurity GAP analysis platform for:
+**GAPLIZZER** is an AI-powered cybersecurity GAP analysis platform for:
 
 - **CISOs / security leaders** who need a clear, defensible view of gaps and remediation progress.
 - **Security analysts** who need actionable tasks, assignments, and a workflow that fits real operations.
 - **Organizations with strict data requirements** that need **confidentiality by design** and an option to deploy **fully on‑premises**, including the AI model.
 
-CyberGAP supports industry frameworks such as **ISO 27001**, **NIST CSF 2.0**, and **SOC 2**. It can ingest real-world evidence (policies, audits, spreadsheets, diagrams) and map findings to framework controls/subcategories—then turns them into trackable gaps.
+GAPLIZZER supports industry frameworks such as **ISO 27001**, **NIST CSF 2.0**, and **SOC 2**. It can ingest real-world evidence (policies, audits, spreadsheets, diagrams) and map findings to framework controls/subcategories—then turns them into trackable gaps.
 
 ---
 
@@ -58,11 +58,11 @@ CyberGAP supports industry frameworks such as **ISO 27001**, **NIST CSF 2.0**, a
 
 ```
 ┌──────────────────────────────────────────────────────────────────────────┐
-│                           CyberGAP (GAPrizz)                              │
+│                                 GAPLIZZER                                 │
 ├──────────────────────────────────────────────────────────────────────────┤
 │  React SPA (Vite + Tailwind + shadcn/ui + Recharts)                        │
 │  - GAP Board     - Analysis Review (SSE)     - Community / Leaderboard     │
-└───────────────┬──────────────────────────────────────────��───────────────┘
+└───────────────┬──────────────────────────────────────────────────────────┘
                 │ HTTPS + JWT
                 v
 ┌──────────────────────────────────────────────────────────────────────────┐
@@ -114,8 +114,8 @@ CyberGAP supports industry frameworks such as **ISO 27001**, **NIST CSF 2.0**, a
 
 ```bash
 # Clone
-git clone https://github.com/<your-org-or-user>/cybergap.git
-cd cybergap
+git clone https://github.com/<your-org-or-user>/gaplizzer.git
+cd gaplizzer
 
 # Backend setup
 python -m venv .venv
@@ -142,7 +142,7 @@ cp .env.example .env  # or create .env manually
 ```dotenv
 # App
 ENV=development
-APP_NAME=CyberGAP
+APP_NAME=GAPLIZZER
 SECRET_KEY=change-me
 
 # Auth
@@ -150,9 +150,9 @@ JWT_SECRET_KEY=change-me-too
 JWT_ACCESS_TOKEN_EXPIRES_MINUTES=60
 
 # Database
-DATABASE_URL=sqlite:///./cybergap.db
+DATABASE_URL=sqlite:///./gaplizzer.db
 # For Postgres:
-# DATABASE_URL=postgresql+psycopg://user:password@localhost:5432/cybergap
+# DATABASE_URL=postgresql+psycopg://user:password@localhost:5432/gaplizzer
 
 # Ollama (local LLM)
 OLLAMA_BASE_URL=http://localhost:11434
@@ -218,7 +218,7 @@ npm run dev
 
 ## 🤖 Agent Pipeline
 
-CyberGAP uses a **multi-agent pipeline** to ingest evidence and turn it into *reviewable, framework-mapped gaps*. Agents run **in parallel where possible**:
+GAPLIZZER uses a **multi-agent pipeline** to ingest evidence and turn it into *reviewable, framework-mapped gaps*. Agents run **in parallel where possible**:
 
 - **First:** Network + IAM + Cloud
 - **Then:** AppSec + Endpoint (depend on network/IAM context)
@@ -238,7 +238,7 @@ CISO Agent (Orchestrator)
 │   └── Cybersecurity Manager
 │       ├── Network Security Agent
 │       ├── IAM Agent
-│       ├── AppSec Agent
+���       ├── AppSec Agent
 │       ├── Cloud Security Agent
 │       ├── Endpoint & Data Agent
 │       ├── Compliance Audit Agent (framework mapping)
@@ -270,7 +270,7 @@ CISO Agent (Orchestrator)
 
 ### 🐳 On-Prem / Air-Gap (Docker)
 
-CyberGAP supports fully on-prem deployment where:
+GAPLIZZER supports fully on-prem deployment where:
 - **FastAPI + DB + frontend** run inside your environment
 - **Ollama and models** run locally
 - **No documents or telemetry leave the network**
